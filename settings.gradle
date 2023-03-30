@@ -16,3 +16,4 @@ rootProject.name = "MovieAppWithMultiModule"
 include ':app'
 include ':presentation'
 include ':navigation'
+include ':common'
