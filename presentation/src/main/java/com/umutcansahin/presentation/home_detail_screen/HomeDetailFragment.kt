@@ -1,32 +1,36 @@
 package com.umutcansahin.presentation.home_detail_screen
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.umutcansahin.presentation.R
+import androidx.fragment.app.Fragment
+import com.umutcansahin.presentation.databinding.FragmentHomeBinding
+import com.umutcansahin.presentation.databinding.FragmentHomeDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeDetailFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = HomeDetailFragment()
-    }
-
-    private lateinit var viewModel: HomeDetailViewModel
+    private var _binding: FragmentHomeDetailBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home_detail, container, false)
+    ): View {
+        _binding = FragmentHomeDetailBinding.inflate(inflater,container,false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(HomeDetailViewModel::class.java)
-        // TODO: Use the ViewModel
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
