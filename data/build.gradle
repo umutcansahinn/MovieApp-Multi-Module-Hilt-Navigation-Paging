@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id "dagger.hilt.android.plugin"
 }
 
 android {
@@ -37,10 +39,34 @@ android {
 
 dependencies {
 
+    implementation(project(":common"))
+    //androidx
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
+
+    //material
     implementation 'com.google.android.material:material:1.8.0'
+
+    //test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // Dagger - Hilt
+    implementation("com.google.dagger:hilt-android:$hilt_version")
+    kapt("com.google.dagger:hilt-android-compiler:$hilt_version")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$gson_version"
+
+    //okhttp
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$retrofit_interceptor_version"
+
 }
