@@ -44,4 +44,5 @@ object NetworkModule {
             .build()
             .create(MovieApi::class.java)
     }
+
 }

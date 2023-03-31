@@ -9,7 +9,7 @@ interface MovieApi {
 
     @GET("movie/popular")
     suspend fun getPopularMovie(
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("api_key") apiKey: String,
         @Query("page") page: Int
     ): PopularMovieResponse
 }
