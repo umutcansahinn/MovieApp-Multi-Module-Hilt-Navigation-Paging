@@ -19,5 +19,9 @@
     <fragment
         android:id="@+id/homeDetailFragment"
         android:name="com.umutcansahin.presentation.home_detail_screen.HomeDetailFragment"
-        android:label="HomeDetailFragment" />
+        android:label="HomeDetailFragment" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

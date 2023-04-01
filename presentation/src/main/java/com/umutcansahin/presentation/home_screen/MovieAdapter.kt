@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.umutcansahin.data.response.MovieResult
 import com.umutcansahin.presentation.databinding.PopularMovieItemBinding
 
-class MovieAdapter : PagingDataAdapter<MovieResult, MovieViewHolder>(DiffUtils) {
-
+class MovieAdapter( private val itemClickListener: ((Int) -> Unit)) : PagingDataAdapter<MovieResult, MovieViewHolder>(DiffUtils) {
 
     object DiffUtils : DiffUtil.ItemCallback<MovieResult>() {
         override fun areItemsTheSame(oldItem: MovieResult, newItem: MovieResult): Boolean {
@@ -18,7 +17,6 @@ class MovieAdapter : PagingDataAdapter<MovieResult, MovieViewHolder>(DiffUtils) 
         override fun areContentsTheSame(oldItem: MovieResult, newItem: MovieResult): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -34,7 +32,8 @@ class MovieAdapter : PagingDataAdapter<MovieResult, MovieViewHolder>(DiffUtils) 
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            itemClickListener
         )
     }
 }

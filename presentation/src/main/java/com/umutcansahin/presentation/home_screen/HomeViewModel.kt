@@ -3,10 +3,7 @@ package com.umutcansahin.presentation.home_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.umutcansahin.data.api.MovieApi
 import com.umutcansahin.data.repository.MovieRepository
-import com.umutcansahin.data.response.PopularMovieResponse
-import com.umutcansahin.presentation.BuildConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -30,6 +27,11 @@ class HomeViewModel @Inject constructor(
             movieRepository.getMovie().cachedIn(viewModelScope).collect {
                 _popularMovie.value = HomeUiState.Success(it)
             }
+        /*Yukarı akış her yaydığında, üzerinde çalıştığı son akışı iptal edecek ve
+             kendisine verilen yeni akışa göre çalışmaya başlayacaktır. Bizim durumumuzda bu,
+              kullanıcının kaydırdığı son sorgunun değerini kaybetmemize neden olur. Bu nedenle,
+               yeni bir sorgu geldiğinde kaybolmaması için son değeri önbelleğe almak için 1
+                değerine sahip işleci kullanıyoruz.*/
         }
     }
 }

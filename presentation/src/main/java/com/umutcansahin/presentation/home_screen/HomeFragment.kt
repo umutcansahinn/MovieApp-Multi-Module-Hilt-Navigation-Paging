@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.umutcansahin.presentation.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -22,7 +21,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HomeViewModel>()
-    private val movieAdapter = MovieAdapter()
+    private val movieAdapter = MovieAdapter(::itemSetClick)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,26 +39,14 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
-        /*  binding.tvTitle.setOnClickListener {
-           findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToHomeDetailFragment())
-           findNavController().navigate(com.umutcansahin.navigation.R.id.action_homeFragment_to_homeDetailFragment)
-       }*/
         binding.recyclerView.adapter = movieAdapter
-
-        movieAdapter.addLoadStateListener {combinedLoadStates->
-            if (combinedLoadStates.refresh is LoadState.Loading) {
-                Log.d("xxx","loading")
-            }else {
-                Log.d("xxx","not Loading")
-            }
-        }
     }
 
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.popularMovie
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
-                .collectLatest {
+                .collect {
                     when (it) {
                         is HomeUiState.Error -> {}
                         is HomeUiState.Loading -> {}
@@ -71,10 +58,12 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun itemSetClick(id: Int) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToHomeDetailFragment(id = id))
+    }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

@@ -7,6 +7,7 @@ import androidx.paging.cachedIn
 import com.umutcansahin.data.api.MovieApi
 import com.umutcansahin.data.paging_source.MoviePagingSource
 import com.umutcansahin.data.response.MovieResult
+import com.umutcansahin.data.response.single_movie.SingleMovieResponse
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -26,5 +27,8 @@ class MovieRepository @Inject constructor(
     }
     companion object {
         const val NETWORK_PAGE_SIZE = 50
+    }
+    suspend fun getMovieById(movieId: Int): SingleMovieResponse {
+        return movieApi.getMovieById(movieId)
     }
 }
