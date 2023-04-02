@@ -2,12 +2,15 @@ package com.umutcansahin.data.paging_source
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.umutcansahin.common.MovieEnum
 import com.umutcansahin.data.BuildConfig
 import com.umutcansahin.data.api.MovieApi
 import com.umutcansahin.data.response.MovieResult
 
 class MoviePagingSource(
-    private val movieApi: MovieApi
+    private val movieApi: MovieApi,
+    private val query: String = "",
+    private val movieEnum: MovieEnum
 ) : PagingSource<Int, MovieResult>() {
 
     override fun getRefreshKey(state: PagingState<Int, MovieResult>): Int? {
@@ -20,7 +23,22 @@ class MoviePagingSource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieResult> {
         val position = params.key ?: 1
         return try {
-            val response = movieApi.getPopularMovie(BuildConfig.API_KEY, position)
+            val response = when (movieEnum) {
+                MovieEnum.POPULAR_MOVIE-> {
+                    movieApi.getPopularMovie(
+                        apiKey = BuildConfig.API_KEY,
+                        page = position
+                    )
+                }
+                MovieEnum.SEARCH_MOVIE-> {
+                    movieApi.searchMovie(
+                        apiKey = BuildConfig.API_KEY,
+                        query = query,
+                        page = position
+                    )
+                }
+            }
+
             val nextKey = if (response.totalPages == null) {
                 null
             } else if (position < response.totalPages) {

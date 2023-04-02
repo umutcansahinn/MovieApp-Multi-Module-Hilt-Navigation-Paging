@@ -20,4 +20,11 @@ interface MovieApi {
         @Path("movieId") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): SingleMovieResponse
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("api_key") apiKey: String,
+        @Query("query") query: String,
+        @Query("page") page: Int
+    ): PopularMovieResponse
 }
