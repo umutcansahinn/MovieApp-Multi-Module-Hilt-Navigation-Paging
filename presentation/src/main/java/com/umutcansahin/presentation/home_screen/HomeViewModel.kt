@@ -27,11 +27,6 @@ class HomeViewModel @Inject constructor(
             movieRepository.getMovie().cachedIn(viewModelScope).collect {
                 _popularMovie.value = HomeUiState.Success(it)
             }
-        /*Yukarı akış her yaydığında, üzerinde çalıştığı son akışı iptal edecek ve
-             kendisine verilen yeni akışa göre çalışmaya başlayacaktır. Bizim durumumuzda bu,
-              kullanıcının kaydırdığı son sorgunun değerini kaybetmemize neden olur. Bu nedenle,
-               yeni bir sorgu geldiğinde kaybolmaması için son değeri önbelleğe almak için 1
-                değerine sahip işleci kullanıyoruz.*/
         }
     }
 }
