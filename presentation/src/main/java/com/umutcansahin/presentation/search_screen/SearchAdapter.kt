@@ -5,16 +5,17 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.umutcansahin.data.response.MovieResult
+import com.umutcansahin.domain.model.popular_movie.MovieResultUiModel
 import com.umutcansahin.presentation.databinding.PopularMovieItemBinding
 
-class SearchAdapter : PagingDataAdapter<MovieResult, SearchViewHolder>(DiffUtils) {
+class SearchAdapter : PagingDataAdapter<MovieResultUiModel, SearchViewHolder>(DiffUtils) {
 
-    object DiffUtils : DiffUtil.ItemCallback<MovieResult>() {
-        override fun areItemsTheSame(oldItem: MovieResult, newItem: MovieResult): Boolean {
+    object DiffUtils : DiffUtil.ItemCallback<MovieResultUiModel>() {
+        override fun areItemsTheSame(oldItem: MovieResultUiModel, newItem: MovieResultUiModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MovieResult, newItem: MovieResult): Boolean {
+        override fun areContentsTheSame(oldItem: MovieResultUiModel, newItem: MovieResultUiModel): Boolean {
             return oldItem == newItem
         }
     }

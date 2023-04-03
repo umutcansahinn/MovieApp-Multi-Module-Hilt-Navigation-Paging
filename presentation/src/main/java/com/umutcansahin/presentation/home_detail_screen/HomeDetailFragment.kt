@@ -12,6 +12,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.umutcansahin.data.response.single_movie.SingleMovieResponse
+import com.umutcansahin.domain.model.single_movie.SingleMovieUiModel
 import com.umutcansahin.presentation.databinding.FragmentHomeDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -61,7 +62,7 @@ class HomeDetailFragment : Fragment() {
     }
 
     @SuppressLint("SetTextI18n")
-    private fun homeDetailFragmentUI(response: SingleMovieResponse) {
+    private fun homeDetailFragmentUI(response: SingleMovieUiModel) {
         with(binding) {
             tvMovieTitle.text = response.title
             tvMovieBudget.text = "${response.budget}$"
