@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.umutcansahin.data.response.MovieResult
 import com.umutcansahin.domain.model.popular_movie.MovieResultUiModel
 import com.umutcansahin.presentation.databinding.PopularMovieItemBinding
 

@@ -3,8 +3,7 @@ package com.umutcansahin.presentation.search_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.umutcansahin.data.repository.MovieRepositoryImpl
-import com.umutcansahin.domain.repository.MovieRepository
+import com.umutcansahin.domain.use_case.SearchMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
-   private val movieRepository: MovieRepository
+   private val searchMovieUseCase: SearchMovieUseCase
 ) : ViewModel() {
 
     private val _searchMovie = MutableStateFlow<SearchUiState>(SearchUiState.Loading)
@@ -21,11 +20,9 @@ class SearchViewModel @Inject constructor(
 
     fun searchMovie(query: String) {
         viewModelScope.launch {
-            movieRepository.searchMovie(query)
-                .cachedIn(viewModelScope)
-                .collect {
-                    _searchMovie.value = SearchUiState.Success(it)
-                }
+            searchMovieUseCase(query = query).cachedIn(viewModelScope).collect {
+                _searchMovie.value = SearchUiState.Success(it)
+            }
         }
     }
 }

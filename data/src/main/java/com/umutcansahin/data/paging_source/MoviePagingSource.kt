@@ -14,7 +14,7 @@ class MoviePagingSource(
 ) : PagingSource<Int, MovieResult>() {
 
     override fun getRefreshKey(state: PagingState<Int, MovieResult>): Int? {
-        return state.anchorPosition?.let {anchorPosition->
+        return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
@@ -24,13 +24,13 @@ class MoviePagingSource(
         val position = params.key ?: 1
         return try {
             val response = when (movieEnum) {
-                MovieEnum.POPULAR_MOVIE-> {
+                MovieEnum.POPULAR_MOVIE -> {
                     movieApi.getPopularMovie(
                         apiKey = BuildConfig.API_KEY,
                         page = position
                     )
                 }
-                MovieEnum.SEARCH_MOVIE-> {
+                MovieEnum.SEARCH_MOVIE -> {
                     movieApi.searchMovie(
                         apiKey = BuildConfig.API_KEY,
                         query = query,
@@ -51,7 +51,7 @@ class MoviePagingSource(
                 prevKey = if (position > 1) position - 1 else null,
                 nextKey = nextKey
             )
-        }catch (e: Exception) {
+        } catch (e: Exception) {
             LoadResult.Error(e)
         }
     }

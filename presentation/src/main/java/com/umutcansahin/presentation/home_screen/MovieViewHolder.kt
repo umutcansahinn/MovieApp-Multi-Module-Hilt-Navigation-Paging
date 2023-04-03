@@ -3,7 +3,6 @@ package com.umutcansahin.presentation.home_screen
 import androidx.recyclerview.widget.RecyclerView
 import com.umutcansahin.common.Constants.BASE_IMAGE_URL
 import com.umutcansahin.common.loadImage
-import com.umutcansahin.data.response.MovieResult
 import com.umutcansahin.domain.model.popular_movie.MovieResultUiModel
 import com.umutcansahin.presentation.databinding.PopularMovieItemBinding
 

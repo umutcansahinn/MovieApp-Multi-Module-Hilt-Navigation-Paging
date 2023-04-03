@@ -16,7 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
     @Provides
     @Singleton
     fun getInterceptor(): Interceptor {
@@ -43,5 +42,4 @@ object NetworkModule {
             .build()
             .create(MovieApi::class.java)
     }
-
 }

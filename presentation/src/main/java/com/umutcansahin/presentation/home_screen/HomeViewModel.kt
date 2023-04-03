@@ -3,8 +3,7 @@ package com.umutcansahin.presentation.home_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.umutcansahin.data.repository.MovieRepositoryImpl
-import com.umutcansahin.domain.repository.MovieRepository
+import com.umutcansahin.domain.use_case.GetPopularMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val movieRepository: MovieRepository
+    private val getPopularMovieUseCase: GetPopularMovieUseCase
 ) : ViewModel() {
 
     private val _popularMovie = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
@@ -25,7 +24,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getPopularMovie() {
         viewModelScope.launch {
-            movieRepository.getPopularMovie().cachedIn(viewModelScope).collect {
+            getPopularMovieUseCase().cachedIn(viewModelScope).collect {
                 _popularMovie.value = HomeUiState.Success(it)
             }
         }
