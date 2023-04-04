@@ -50,20 +50,20 @@ class SearchFragment : Fragment() {
             .debounce(300L)
             .distinctUntilChanged()
             .onEach {
-                viewModel.searchMovie(it)
+                if (it.isNotBlank()) viewModel.searchMovie(it) else viewModel.getPopularMovie()
             }.launchIn(lifecycleScope)
     }
 
     private fun observeData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.searchMovie
+            viewModel.getMovie
                 .flowWithLifecycle(viewLifecycleOwner.lifecycle, Lifecycle.State.STARTED)
                 .collect {
                     when (it) {
                         is SearchUiState.Error -> {}
                         is SearchUiState.Loading -> {}
                         is SearchUiState.Success -> {
-                            searchAdapter.submitData(it.data)
+                            searchAdapter.submitData(lifecycle,it.data)
                         }
                     }
                 }

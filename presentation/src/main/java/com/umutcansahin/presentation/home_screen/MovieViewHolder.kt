@@ -14,7 +14,7 @@ class MovieViewHolder(
     fun bind(movieResult: MovieResultUiModel) {
         binding.ivPicture.loadImage(BASE_IMAGE_URL+movieResult.posterPath)
         binding.tvTitle.text = movieResult.title
-        binding.tvTitle.setOnClickListener {
+        binding.root.setOnClickListener {
             itemClickListener.invoke(movieResult.id)
         }
     }
