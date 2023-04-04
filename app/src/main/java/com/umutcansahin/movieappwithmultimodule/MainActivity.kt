@@ -2,6 +2,7 @@ package com.umutcansahin.movieappwithmultimodule
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -24,5 +25,8 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
 
         NavigationUI.setupWithNavController(binding.bottomNavigationView,navController)
+
+        //fixed bottom navigation bar moves when i click edittext
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
     }
 }
